@@ -7,8 +7,31 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>Gaali nai deneka!!!</h1>
-    <h3>Status: Active</h3>
-    <script src="popup.js"></script>
+    <div class="card">
+    <div class="header">
+      <h2>No Ga*li Galoch</h2>
+      <label class="switch">
+        <input type="checkbox" id="toggle-filter" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="status-box">
+      <span class="status-label">Status:</span>
+      <span id="status-text" class="status-active">Active</span>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-scanned">0</span>
+        <span class="stat-label">Scanned</span>
+      </div>
+      <div class="stat-card alert">
+        <span class="stat-num" id="stat-blocked">0</span>
+        <span class="stat-label">Blocked</span>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
   </body>
 </html>
