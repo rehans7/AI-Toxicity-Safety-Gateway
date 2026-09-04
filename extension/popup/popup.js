@@ -4,32 +4,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const scannedEl = document.getElementById("stat-scanned");
   const blockedEl = document.getElementById("stat-blocked");
 
-  chrome.storage.local.get(["filterEnabled", "scannedCount", "blockedCount"], (data) => {
-  
-    const isEnabled = data.filterEnabled !== false; 
-    toggle.checked = isEnabled;
+  chrome.storage.local.get(
+    ["filterEnabled", "scannedCount", "blockedCount"],
+    (data) => {
+      const isEnabled = data.filterEnabled !== false;
+      toggle.checked = isEnabled;
+      updateStatusUI(isEnabled);
+
+      scannedEl.textContent = data.scannedCount || 0;
+      blockedEl.textContent = data.blockedCount || 0;
+    },
+  );
+
+  // Toggle changed
+  toggle.addEventListener("change", () => {
+    const isEnabled = toggle.checked;
+
+    console.log("Toggle:", isEnabled);
+    //this is running in the console of the browser.
     updateStatusUI(isEnabled);
 
-    scannedEl.textContent = data.scannedCount || 0;
-    blockedEl.textContent = data.blockedCount || 0;
-  });
-
-  
-  toggle.addEventListener("change", (e) => {
-    const isChecked = e.target.checked;
-    updateStatusUI(isChecked);
-
- 
-    chrome.storage.local.set({ filterEnabled: isChecked });
+    chrome.storage.local.set({
+      filterEnabled: isEnabled,
+    });
   });
 
   function updateStatusUI(isEnabled) {
     if (isEnabled) {
       statusText.textContent = "Active";
-      statusText.className = "status-active";
+
+      statusText.classList.remove("status-disabled");
+      statusText.classList.add("status-active");
     } else {
       statusText.textContent = "Disabled";
-      statusText.className = "status-disabled";
+
+      statusText.classList.remove("status-active");
+      statusText.classList.add("status-disabled");
     }
   }
 });
