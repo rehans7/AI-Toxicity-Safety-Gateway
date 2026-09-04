@@ -3,7 +3,11 @@
   "name": "No Gaali",
   "version": "1.0",
   "permissions": ["storage"],
-  "action": {
-    "default_popup": "popup/popup.html"
-  }
+  "action": {},
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"]
+    }
+  ]
 }
